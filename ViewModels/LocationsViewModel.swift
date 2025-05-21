@@ -50,4 +50,26 @@ class LocationsViewModel: ObservableObject {
             showLocationsList = false
         }
     }
+    
+    func nextButtonPressed() {
+        //LOGIC EXPLANATION
+        // “Find the first item in the list that matches ‘nextlocation’ and give me its index (position).”
+        //firstIndex == firstMatch
+        //        OR ...“Let’s go through groceryList.
+        //        For each item ($0), check if it’s equal to "Milk".
+        //        When you find the first match, give me its index, and save it in currentIndex.”
+        
+        guard let currentIndex = locations.firstIndex(where: {$0 == mapLocation}) else {
+            return
+        }
+        let nextIndex = currentIndex + 1
+        guard locations.indices.contains(nextIndex) else {
+            guard let firstLocation = locations.first else { return }
+            showNextLocation(location: firstLocation)
+            return
+            
+        }
+        let nextLocation  = locations[nextIndex]
+        showNextLocation(location: nextLocation)
+    }
 }
